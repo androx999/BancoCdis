@@ -88,5 +88,12 @@ public class Tarjeta implements Serializable {
 		return serialVersionUID;
 	}
 
+	public Long getIdCuentaAux() {
+		
+		return getIdCuentaAux();
+	}
+
+
+
 	
 }

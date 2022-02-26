@@ -27,6 +27,8 @@
       <td th:text="${cuenta.getSaldo()}"></td>
       <td th:text="${cuenta.getNumeroTelefono()}"></td>
       <td th:text="${cuenta.getDiaCreacion()}"></td>
+      <td><a th:href="@{/form-cuenta/} + ${cuenta.getId()}" th:text="'Editar'" ></a></td>
+      <td><a th:href="@{/eliminarcuenta/} + ${cuenta.getId()}" th:text="'Eliminar'" onclick="return confirm('¿Desea eliminar la tarjeta?');"></a></td>
   </tbody>
 </table>
 

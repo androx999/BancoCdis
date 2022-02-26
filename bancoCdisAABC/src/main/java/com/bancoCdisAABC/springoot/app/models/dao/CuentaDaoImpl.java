@@ -1,5 +1,6 @@
 package com.bancoCdisAABC.springoot.app.models.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,10 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bancoCdisAABC.springoot.app.models.entity.Cuenta;
-import com.bancoCdisAABC.springoot.app.models.entity.Tarjeta;
 
 @Repository
-public class CuentaDaoImpl implements ICuentaDao {
+public class CuentaDaoImpl implements ICuentaDao{
 
 	@PersistenceContext
 	private EntityManager em;
@@ -36,14 +36,27 @@ public class CuentaDaoImpl implements ICuentaDao {
 }
 
 	@Override
-	public Tarjeta findOne(Long id) {
-	  return em.find(Tarjeta.class, id);
+	@Transactional(readOnly = true)
+	public Cuenta findOne(Long id) {
+	  return em.find(Cuenta.class, id);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		em.remove(findOne(id));
 		
+	}
+
+	@Override
+	public List<Cuenta> findByNumeroTelefono(String term) {
+		List<Cuenta> cuentas = new ArrayList<Cuenta>();
+		for(Cuenta cuenta : this.findAll()) {
+			if(cuenta.getNumeroTelefono().equals(term)) {
+				cuentas.add(cuenta);
+			}
+		}
+		return cuentas;
 	}
 	
 }

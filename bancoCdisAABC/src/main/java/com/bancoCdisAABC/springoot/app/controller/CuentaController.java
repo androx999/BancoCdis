@@ -11,12 +11,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.bancoCdisAABC.springoot.app.models.dao.ICuentaDao;
 import com.bancoCdisAABC.springoot.app.models.entity.Cuenta;
 
 @Controller
+@SessionAttributes("cuenta")
 public class CuentaController {
 
 	@Autowired
@@ -57,17 +59,22 @@ public class CuentaController {
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de la tarjeta");
 			return "form-cuenta";
+	}else {
+		model.addAttribute("result", false);
+		model.addAttribute("errList", "");
 	}
+		model.addAttribute("titulo", "Formulario cuenta");
+		model.addAttribute("mensaje", "¿Se guardo correctamente?");
 		cuentaDao.save(cuenta);
 		status.setComplete();
-	    return "redirect:index";	
+	    return "redirect:form-cuenta";	
 }
 	@RequestMapping(value="/eliminarcuenta/{id}")
 	public String eliminar(@PathVariable(value="id") Long id) {
 		if(id>0) {
 			cuentaDao.delete(id);
 		}
-		return "redirect:index";	
+		return "redirect:lista";	
 	}
 }
 

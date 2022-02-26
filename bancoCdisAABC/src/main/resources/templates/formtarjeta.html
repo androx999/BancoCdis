@@ -37,11 +37,11 @@
 					<tr>
 						<td>ID cuenta</td>
 						<td>
-							<select th:field="*{cuenta}">
-								<option th:each="cuenta : ${listaCuentas}" 
-										th:value="${cuenta.getId()}"
-										th:text="${cuenta.getId()+' Nombre: '+cuenta.getNombre()}"></option>
-							</select>
+						<select th:field="*{idCuentaAux}">
+						<option th:each="cuenta : ${listaCuentas}"
+						        th:value="${cuenta.getId()}"
+						        th:text="${cuenta.getId()+' Nombre: '+cuenta.getNombre()}"></option>
+						</select>
 						</td>			
 					</tr>
 
